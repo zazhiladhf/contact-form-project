@@ -2,7 +2,7 @@
 
 Author by **Zazhil Adhafi**
 
-<a href="zazhil.my.id" target="_blank"><img src="" 
+<a href="http://zazhil.my.id" target="_blank"><img src="" 
 alt="" height="15" /> zazhil.my.id</a> | <a href="https://www.instagram.com/zazhiladhf/" target="_blank"><img src="https://ugc.production.linktr.ee/a8ba242a-a7f1-4d2e-93f0-15124dbbb705_IMG-4598.jpeg?io=true&size=thumbnail-stack-v1_0" 
 alt="IMAGE ALT TEXT HERE" height="15" /> Instagram </a> | <a href="https://web.facebook.com/zazhil95" target="_blank"><img src="https://ugc.production.linktr.ee/2f39a16b-d486-42f7-90be-504dbfacbde9_IMG-1825.png?io=true&size=thumbnail-stack-v1_0" 
 alt="IMAGE ALT TEXT HERE" height="15" /> Facebook </a>
