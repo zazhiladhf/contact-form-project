@@ -1,11 +1,9 @@
 # Stage 1: Build the application
 FROM golang:1.22-alpine AS builder
 
-# Set environment variables
+# Enable Go Modules
 ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=amd64
+    CGO_ENABLED=0
 
 # Set working directory
 WORKDIR /app
@@ -16,7 +14,7 @@ COPY . .
 # Download dependencies
 RUN go mod download
 
-# Build the application
+# Build the application — let Docker/host handle the arch (GOARCH auto)
 RUN go build -o api-contact-form .
 
 # Stage 2: Create the production image
@@ -25,30 +23,25 @@ FROM alpine:latest
 # Install tzdata for timezone support
 RUN apk add --no-cache tzdata
 
-# Set the timezone environment variable (can be overridden by .env)
+# Set the timezone
 ENV TZ=Asia/Jakarta
-
-# Configure the timezone
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Set working directory
+# Working directory
 WORKDIR /app
 
-# Create user and group for application
-#
-# Create a group with GID 1001
-RUN addgroup -g 1001 binarygroup
-# Create a user with UID 1001 and assign them to the 'binarygroup' group
-RUN adduser -D -u 1001 -G binarygroup userapp
+# Create user and group
+RUN addgroup -g 1001 binarygroup \
+ && adduser -D -u 1001 -G binarygroup userapp
 
-# Copy the binary from the builder stage
+# Copy binary with permission set
 COPY --from=builder --chown=userapp:binarygroup /app/api-contact-form .
 
-# Switch to the userapp user
+# Switch to non-root user
 USER userapp
 
-# Expose port 8080
+# Expose port
 EXPOSE 8080
 
-# Command to run the application
+# Run the binary
 CMD ["./api-contact-form"]
